@@ -182,16 +182,10 @@ readChoice:
     }
     case 6:
     {
-        //generate password
-
-        break;
-    }
-    case 7:
-    {
         //exit
-
         return 0;
     }
+    
     }
     if (choice != 7)
     {
@@ -226,8 +220,7 @@ int option()
         << "3 - Search\n"
         << "4 - Search and Edit\n"
         << "5 - Search and Delete\n"
-        << "6 - Generate password\n"
-        << "7 - EXIT\n"
+        << "6 - EXIT\n"
         << "------------------------------\n";
 
     do
@@ -240,8 +233,7 @@ int option()
             choice == "3" || 
             choice == "4" || 
             choice == "5" || 
-            choice == "6" || 
-            choice == "7"))
+            choice == "6" ))
         {
             cout << "Your option does not exist\n";
             ok = 0;
@@ -280,7 +272,13 @@ void writeFile(fstream& file, Account *accounts, int size)
     file.open("accounts", ios::out);
     if (file.is_open())
     {
-        file << encrypt(accounts, size);
+        //file << encrypt(accounts, size);
+        for (int i = 0; i < size; i++)
+        {
+            file << accounts[i].getName() + "\n";
+            file << accounts[i].getUsername() + "\n";
+            file << accounts[i].getPassword() + "\n\n";
+        }
     }
     file.close();
 }
@@ -326,6 +324,8 @@ int wrongOption()
         return 1;
     }
 }
+
+/*
 
 string encrypt(Account* accounts, int size)
 {
@@ -420,3 +420,5 @@ int findCoprime(int n)
         }
     }
 }
+
+*/
