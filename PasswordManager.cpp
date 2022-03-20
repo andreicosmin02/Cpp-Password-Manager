@@ -15,9 +15,6 @@ int searchAccount(Account*, string, int);
 void writeFile(fstream&, Account*, int);
 void deleteAccount(Account*, int&, int);
 int wrongOption();
-string encrypt(Account*, int);
-double* RSA_Algorithm();
-int findCoprime(int);
 
 
 int main()
@@ -187,7 +184,7 @@ readChoice:
     }
     
     }
-    if (choice != 7)
+    if (choice != 6)
     {
         cout << "\n\nPress enter to continue...";
         (void)_getch();
@@ -272,7 +269,6 @@ void writeFile(fstream& file, Account *accounts, int size)
     file.open("accounts", ios::out);
     if (file.is_open())
     {
-        //file << encrypt(accounts, size);
         for (int i = 0; i < size; i++)
         {
             file << accounts[i].getName() + "\n";
@@ -324,101 +320,3 @@ int wrongOption()
         return 1;
     }
 }
-
-/*
-
-string encrypt(Account* accounts, int size)
-{
-    string enc = "";
-    unsigned long long int ascii;
-    int i = 0;
-    for (i = 0; i < size; i++)
-    {
-        enc += accounts[i].getName() + "\n";
-        enc += accounts[i].getUsername() + "\n";
-        enc += accounts[i].getPassword() + "\n\n";
-    }
-
-    double* public_key;
-    double* private_key;
-    public_key = new double[2];
-    private_key = new double[2];
-    public_key[0] = RSA_Algorithm()[0];
-    public_key[1] = RSA_Algorithm()[1];
-
-    private_key[0] = RSA_Algorithm()[2];
-    private_key[1] = RSA_Algorithm()[3];
-
-
-
-    cout << public_key[0] << " " << public_key[1];
-
-    for (i = 0; i < enc.length(); i++)
-    {
-        ascii = (unsigned long long int)pow(enc[i], public_key[0]);
-        ascii = fmod(ascii, public_key[1]);
-        enc[i] = (char)ascii;
-    }
-
-    cout << endl;
-    cout << enc;
-    cout << endl;
-    
-    for (i = 0; i < enc.length(); i++)
-    {
-        ascii = (unsigned long long int)pow(enc[i], private_key[0]);
-        ascii = fmod(ascii, private_key[1]);
-        enc[i] = (char)ascii;
-    }
-    cout << enc;
-    cout << endl;
-
-    delete[]public_key;
-    delete[]private_key;
-    return enc;
-}
-
-double* RSA_Algorithm()
-{
-    double x = 3, y = 7;
-    double n = x * y;
-    
-
-    double phi = (x - 1) * (y - 1);
-
-    double e = findCoprime(phi);
-
-    int k = 2;
-    double d = (1.0 + (k * phi)) / e;
-
-    double* keys;
-    keys = new double[4];
-    keys[0] = e;
-    keys[1] = n;
-    keys[2] = d;
-    keys[3] = n;
-    return keys;
-}
-
-int findCoprime(int n)
-{
-    for (int i = 2; i < n; i++)
-    {
-        int a, b, c;
-        a = i;
-        b = n;
-
-        while (b != 0)
-        {
-            c = a % b;
-            a = b;
-            b = c;
-        }
-        if (a == 1)
-        {
-            return i;
-        }
-    }
-}
-
-*/
